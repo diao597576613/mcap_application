@@ -1,7 +1,6 @@
 
-#define CATCH_CONFIG_MAIN
-#include <catch2/catch.hpp>
-
+// Catch2 v3：由 CMake 链接 Catch2::Catch2WithMain 提供 main，这里只需要测试宏和匹配器
+#include <catch2/catch_all.hpp>
 #include "BuildFileDescriptorSet.h"
 #include "foxglove/SceneUpdate.pb.h"
 

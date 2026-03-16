@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
+# Conan 2 构建：需先安装 Conan 2（pip install conan）
 set -e
 cd "$(dirname "$0")/.."
 mkdir -p build
 cd build
-# 必须与当前 GCC 的默认 ABI 一致（GCC 5+ 默认 libstdc++11），否则会报 undefined reference to ... [abi:cxx11]
-conan install .. --build=missing -s compiler.libcxx=libstdc++11
-cmake .. -DCMAKE_BUILD_TYPE=Release
+# 生成 toolchain 与 *-config.cmake（GCC 下建议 profile 里 compiler.libcxx=libstdc++11）
+conan install .. --output-folder=. --build=missing
+cmake .. -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake -DCMAKE_BUILD_TYPE=Release
 cmake --build .
